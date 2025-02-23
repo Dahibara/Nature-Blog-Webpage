@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Blog</title>
+    <style>
+      body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+        .logo-text {
+            font-style: italic;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: #f0f0f0;
+            border-radius: 20px;
+            padding: 5px 10px;
+        }
+        .search-bar {
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 5px;
+            border-radius: 20px;
+            width: 0;
+            opacity: 0;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .search-container:hover .search-bar {
+            width: 180px;
+            opacity: 1;
+        }
+        .search-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #ddd;
+            border-radius: 5px;
+        }
+        .user-icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer ul li a {
+            color: #f4a261;
+            text-decoration: none;
+        }
+        .write-btn {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            background: none;
+            padding: 7px 12px;
+        }
+        .write-btn img {
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+        }
+        .write-btn:hover {
+            background: #ddd;
+            border-radius: 5px;
+        }
+        .signup-btn, .signin-btn {
+            background: #1C6E4A;
+            color: white;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .signup-btn:hover, .signin-btn:hover {
+            background: #145A32;
+            transform: scale(1.05);
+        }
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: transform 0.2s ease;
+            object-fit: cover;
+        }
+        .user-icon:hover {
+            transform: scale(1.1);
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 20px;
+            text-align: left;
+        }
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 0px;
+            text-align: left;
+        }
+        .sub-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 5px;
+            text-align: left;
+        }
+        .author-name {
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 10px;
+            text-align: left;
+            color: #555;
+        }
+        .icon-section {
+            margin: 20px 0;
+        }
+        .separator {
+            width: 100%;
+            height: 1px;
+            background-color: gray;
+            margin: 20px 0;
+        }
+        .icon-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .left-icons {
+            display: flex;
+            gap: 5px;
+        }
+        .right-icons {
+            display: flex;
+            gap: 8px;
+        }
+        .icon {
+            position: relative;
+            cursor: pointer;
+        }
+        .icon::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .icon:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+        .content-image {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .content-section {
+        font-family: 'Merriweather', serif;
+        font-size: 20px;
+        line-height: 2;
+        color: #333;
+        text-align: justify;
+        margin: 20px;
+        }
+        h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #8E7AB5;
+        margin-bottom: 10px;
+        }
+        img {
+        width: auto;
+        height: 500px;
+        display: block;
+        margin: auto;
+        border-radius: 10px;
+        }
+        .divider {
+    width: 100%;
+    height: 2px;
+    background-color: gray;
+    margin: 30px 0;
+  }
+  .comment-section {
+    width: 80%;
+    margin: auto;
+    padding: 15px;
+    border: 2px solid #8E7AB5;
+    border-radius: 25px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .comment-section input {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+  }
+  .comment-section button {
+    background-color:#8E7AB5;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .comment-section button:hover {
+    background-color: #8E7AB5;
+  }  
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .left-section {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .search-container {
+                width: 100%;
+            }
+            .search-bar {
+                width: 80%;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="left-section">
+            <div class="logo">Sylva</div>
+            <div class="search-container">
+                <button class="search-icon" onclick="toggleSearch()">🔍</button>
+                <input type="text" id="search-bar" class="search-bar" placeholder="Search...">
+            </div>
+        </div>
+        <nav class="nav-links">
+            <button class="write-btn" id="write-btn">
+                <img src="write.png" alt="Write Icon"> Write
+            </button>
+            <button class="signup-btn">Sign Up</button>
+            <button class="btn">Sign In</button>
+            <img src="user.webp" alt="User Icon" class="user-icon">
+        </nav>
+    </header>
+    <div class="main-content">
+        <h1 class="main-heading">Sunsets and Their Tranquility</h1>
+        <h1 class="sub-heading">Introduction</h1>
+        <p class="author-name">by Himani Barua | February 22, 2025</p>
+        <div class="icon-section">
+            <div class="separator"></div>
+            <div class="icon-bar">
+                <div class="left-icons">
+                    <div class="icon" data-tooltip="Like">❤️</div>
+                    <div class="icon" data-tooltip="Comment">💬</div>
+                </div>
+                <div class="right-icons">
+                    <div class="icon" data-tooltip="Save">🔖</div>
+                    <div class="icon" data-tooltip="Listen">🎧</div>
+                    <div class="icon" data-tooltip="Share">🔗</div>
+                </div>
+            </div>
+            <div class="separator"></div>
+        </div>
+        <h2>Introduction</h2>
+        <p class="content-section">Sunsets are one of nature’s most mesmerizing spectacles, captivating people across cultures and generations. They provide a serene transition from the bustling activities of the day to the calm of the night. The shifting colors in the sky create a sense of tranquility, allowing people to pause, reflect, and appreciate the beauty of nature.</p>
+        <img src="sunset.webp" alt="Scenic view of nature" style="width:auto; height:500px; display:block; margin:auto;">
+        <h2>The Beauty of Sunsets</h2>
+        <p class="content-section">The beauty of sunsets lies in their ever-changing palette of colors. As the sun sets, hues of gold, orange, pink, and violet blend seamlessly across the sky, creating a breathtaking display. This natural phenomenon serves as a daily reminder of the wonders of our world, inspiring awe and appreciation in those who witness it. The serene ambiance of a sunset offers a perfect opportunity to unwind, reflect, and find inner peace amidst the chaos of everyday life.</p>
+        <h2>The Emotional Impact</h2>
+        <p class="content-section">Sunsets evoke deep emotions, ranging from nostalgia to hope. The colors and calmness of dusk can provide a sense of comfort, helping individuals feel more connected to nature and themselves. The fleeting beauty of a sunset serves as a reminder of the impermanence of life, encouraging mindfulness and gratitude. Whether shared with loved ones or experienced in solitude, sunsets have the power to stir emotions and create lasting memories.</p>
+        <h2>Why Sunsets Bring Peace</h2>
+        <p class="content-section">Sunsets provide a moment of stillness in an otherwise chaotic world. The gradual fading of sunlight encourages mindfulness and relaxation. Observing the transition from daylight to dusk allows one to pause, breathe, and appreciate the present moment, fostering inner peace and mental clarity.</p>
+        <h2>A Timeless Spectacle</h2>
+        <p class="content-section">Throughout history, sunsets have been depicted in art, literature, and photography as symbols of beauty and transition. They remind us of the impermanence of time and the importance of cherishing each day. Whether viewed alone or with loved ones, sunsets create unforgettable experiences that leave a lasting impact.</p>
+        <img src="tranquility.jpg" alt="Beautiful river flowing through nature" style="width:auto; height:500px; display:block; margin:auto;">
+
+        <h2>Conclusion</h2>
+        <p class="content-section">Sunsets are more than just a daily occurrence; they are a gift from nature that reminds us to slow down and appreciate life's fleeting moments. Their beauty and calming effect make them a cherished part of our daily lives, leaving a lasting impression on those who take the time to admire them.</p>
+        <p class="content-section">I hope you enjoyed reading this blog about the beauty of nature. Remember to take a moment to step outside and immerse yourself in the wonders that surround us.</p>
+        <div class="divider"></div>
+
+        <<div class="comment-section">
+            <input type="text" placeholder="What are your thoughts?!">
+            <button>Respond</button>
+          </div>
+    </div>
+    </div>
+    <footer class="footer">
+        <h3>Recommended Posts</h3>
+        <ul>
+            <li><a href="index.html">Exploring the Beauty of Nature</a></li>
+            <li><a href="index3.html">The Colors of Autumn</a></li>
+            <li><a href="index4.html">Birdwatching: A Peaceful Hobby</a></li>
+        </ul>
+        <p>&copy; 2025 Nature Blog | All Rights Reserved</p>
+    </footer>
+    
